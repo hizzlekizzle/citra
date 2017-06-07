@@ -481,6 +481,9 @@ void RendererOpenGL::PrepareRendertarget() {
 void RendererOpenGL::RenderToMailbox(const Layout::FramebufferLayout& layout,
                                      std::unique_ptr<Frontend::TextureMailbox>& mailbox,
                                      bool flipped) {
+    render_window->SetupFramebuffer();
+
+    DrawScreens();
 
     Frontend::Frame* frame;
     {

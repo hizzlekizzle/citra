@@ -110,10 +110,15 @@ endif()
 if (ENABLE_QT)
     add_subdirectory(citra_qt)
 endif()
+
 if (ANDROID)
     add_subdirectory(android/app/src/main/cpp)
 else()
     add_subdirectory(dedicated_room)
+endif()
+
+if (ENABLE_LIBRETRO)
+    add_subdirectory(citra_libretro)
 endif()
 
 if (ENABLE_WEB_SERVICE)

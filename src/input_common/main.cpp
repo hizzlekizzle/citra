@@ -12,6 +12,9 @@
 #include "input_common/sdl/sdl.h"
 #include "input_common/touch_from_button.h"
 #include "input_common/udp/udp.h"
+#ifdef HAVE_LIBRETRO
+#include "input_common/libretro/libretro.h"
+#endif
 
 namespace InputCommon {
 
@@ -30,7 +33,12 @@ void Init() {
     Input::RegisterFactory<Input::TouchDevice>("touch_from_button",
                                                std::make_shared<TouchFromButtonFactory>());
 
+#ifdef HAVE_SDL2
     sdl = SDL::Init();
+#endif
+#ifdef HAVE_LIBRETRO
+    LibRetro::Init();
+#endif
 
     udp = CemuhookUDP::Init();
 }
@@ -44,6 +52,14 @@ void Shutdown() {
     Input::UnregisterFactory<Input::TouchDevice>("touch_from_button");
     sdl.reset();
     udp.reset();
+
+#ifdef HAVE_SDL2
+    SDL::Shutdown();
+    poll_thread.join();
+#endif
+#ifdef HAVE_LIBRETRO
+    LibRetro::Shutdown();
+#endif
 }
 
 Keyboard* GetKeyboard() {

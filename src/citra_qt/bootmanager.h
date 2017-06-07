@@ -177,6 +177,12 @@ public:
 
     void focusOutEvent(QFocusEvent* event) override;
 
+    void SetupFramebuffer() override;
+
+    bool ShouldDeferRendererInit() const override;
+
+    void OnClientAreaResized(unsigned width, unsigned height);
+
     void InitRenderTarget();
 
     /// Destroy the previous run's child_widget which should also destroy the child_window
