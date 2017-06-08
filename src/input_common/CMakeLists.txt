@@ -19,7 +19,6 @@ add_library(input_common STATIC
     udp/udp.h
 
     $<$<BOOL:${SDL2_FOUND}>:sdl/sdl.cpp sdl/sdl.h>
-    $<$<BOOL:${ENABLE_LIBRETRO}>:libretro/libretro.cpp libretro/libretro.h>
 )
 
 if(SDL2_FOUND)

@@ -36,9 +36,6 @@ void Init() {
 #ifdef HAVE_SDL2
     sdl = SDL::Init();
 #endif
-#ifdef HAVE_LIBRETRO
-    LibRetro::Init();
-#endif
 
     udp = CemuhookUDP::Init();
 }
@@ -56,9 +53,6 @@ void Shutdown() {
 #ifdef HAVE_SDL2
     SDL::Shutdown();
     poll_thread.join();
-#endif
-#ifdef HAVE_LIBRETRO
-    LibRetro::Shutdown();
 #endif
 }
 
