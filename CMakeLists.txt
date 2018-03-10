@@ -46,6 +46,8 @@ option(USE_SYSTEM_BOOST "Use the system Boost libs (instead of the bundled ones)
 CMAKE_DEPENDENT_OPTION(ENABLE_FDK "Use FDK AAC decoder" OFF "NOT ENABLE_FFMPEG_AUDIO_DECODER;NOT ENABLE_MF" OFF)
 
 if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.git/hooks/pre-commit)
+
+option(DISABLE_CLANG_TARGET "Disables the Clang format check" ON)
     message(STATUS "Copying pre-commit hook")
     file(COPY hooks/pre-commit
         DESTINATION ${PROJECT_SOURCE_DIR}/.git/hooks)
@@ -264,7 +266,7 @@ find_program(CLANG_FORMAT
           clang-format
     PATHS ${PROJECT_BINARY_DIR}/externals)
 # if find_program doesn't find it, try to download from externals
-if (NOT CLANG_FORMAT)
+if (NOT CLANG_FORMAT AND NOT DISABLE_CLANG_TARGET)
     if (WIN32)
         message(STATUS "Clang format not found! Downloading...")
         set(CLANG_FORMAT "${PROJECT_BINARY_DIR}/externals/clang-format${CLANG_FORMAT_POSTFIX}.exe")
@@ -282,7 +284,7 @@ if (NOT CLANG_FORMAT)
     endif()
 endif()
 
-if (CLANG_FORMAT)
+if (CLANG_FORMAT AND NOT DISABLE_CLANG_TARGET)
     set(SRCS ${PROJECT_SOURCE_DIR}/src)
     set(CCOMMENT "Running clang format against all the .h and .cpp files in src/")
     if (WIN32)
