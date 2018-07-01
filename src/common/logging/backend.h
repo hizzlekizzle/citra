@@ -119,6 +119,10 @@ public:
     void Write(const Entry& entry) override;
 };
 
+void Init();
+
+void Destroy();
+
 void AddBackend(std::unique_ptr<Backend> backend);
 
 void RemoveBackend(std::string_view backend_name);
