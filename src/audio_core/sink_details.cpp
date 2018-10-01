@@ -39,7 +39,7 @@ constexpr SinkDetails sink_details[] = {
 // g_sink_details is ordered in terms of desirability, with the best choice at the top.
 const std::vector<SinkDetails> g_sink_details = {
 #ifdef HAVE_LIBRETRO
-    SinkDetails{"libretro", &std::make_unique<LibRetroSink, std::string>, &ListLibretroSinkDevices},
+    SinkDetails{"libretro", &std::make_unique<LibRetroSink, std::string>, &ListLibretroSinkDevices, true},
 #endif
 
 #ifdef HAVE_CUBEB

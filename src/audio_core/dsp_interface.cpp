@@ -58,6 +58,8 @@ void DspInterface::OutputSample(std::array<s16, 2> sample) {
     if (Core::System::GetInstance().VideoDumper().IsDumping()) {
         Core::System::GetInstance().VideoDumper().AddAudioSample(std::move(sample));
     }
+
+    GetSink().OnAudioSubmission(frame.size());
 }
 
 void DspInterface::OutputCallback(s16* buffer, std::size_t num_frames) {
